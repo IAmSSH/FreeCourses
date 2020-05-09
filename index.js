@@ -1,7 +1,7 @@
 const app = require('express')(),
     bodyParser = require('body-parser'),
     cheerio = require('cheerio'),
-    site = require('./simpleHTMLSite'),
+    site = require('./site'),
     osmosis = require('osmosis')
     ;
 
@@ -28,30 +28,30 @@ app.get('/search', (req, res) => {
 app.post('/submit', (req, res) => {
     // Perform scraping
 
-    // const $ = cheerio.load(site);
-    // title = $('h1.clp-lead__title').html();
-    // learning = $('.what-you-get__items')
-    //             .find('.what-you-get__text')
-    //             .contents().toArray()
-    // description = $('div.clp-component-render div.description div.js-simple-collapse-inner').html()
+    const $ = cheerio.load(site);
+    title = $('h1.clp-lead__title').html();
+    learning = $('.what-you-get__items')
+                .find('.what-you-get__text')
+                .contents().toArray()
+    description = $('div.clp-component-render div.description div.js-simple-collapse-inner').html()
     // console.log(
     //     $('.ud-component--clp--curriculum').text()
     // );
 
 
-    function fun() {
-        return new Promise((resolve, reject) => {
-            let result;
+    // function fun() {
+    //     return new Promise((resolve, reject) => {
+    //         let result;
 
-            osmosis.get('http://localhost:8080/samplePage2')
-                .set({title:'h1'})
-                .data(res=>{result = res})
-                .error(err => reject(err))
-                .done(() => resolve(result))
-        })
-    }
+    //         osmosis.get('http://localhost:8080/samplePage2')
+    //             .set({title:'h1'})
+    //             .data(res=>{result = res})
+    //             .error(err => reject(err))
+    //             .done(() => resolve(result))
+    //     })
+    // }
 
-    fun().then(console.log).catch(console.log);
+    // fun().then(console.log).catch(console.log);
 
 
     // axios.get('https://www.udemy.com/course/complete-python-bootcamp/')
@@ -69,8 +69,8 @@ app.post('/submit', (req, res) => {
     //     });
 
     // render new page with scraped details
-    // res.render("result", {learning:learning, title:title})
-    res.send("results")
+    res.render("result", {learning:learning, title:title})
+    // res.send("results")
 });
 
 app.get('/samplePage', (req, res) => {
