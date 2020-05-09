@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="public/index.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body>
+<body class="container">
 
     <h1>
         <%= title %>
     </h1>
 
-    <img src="<%=image%>" alt="">
+    <div class="d-flex justify-content-center">
+        <img src="<%=image%>" alt="">
+
+    </div>
     
     <h3>What you'll learn</h3>
     <ul>
-        <% learning.forEach(element => { %>
-             <li><%= element.data %></li> 
-        <% }) %>
+        <% if (learning) { %>
+            <% learning.forEach(element => { %>
+                 <li><%= element.data %></li> 
+            <% }) %>
+        <% } %>
     </ul>
 
     <h3>Description</h3>
@@ -30,7 +35,9 @@
     <% content.forEach(title => { %>
         <li><%= title.data %></li>
     <% }) %>
-    <li><%= expandMessage %></li>
+    <% if (expandMessage) { %>
+        <div>...and <%= expandMessage %></div>
+    <% } %>
     </ul>
 </body>
 </html>
